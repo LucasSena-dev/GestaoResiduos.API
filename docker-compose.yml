@@ -1,0 +1,44 @@
+services:
+  # Banco de dados SQL Server
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: gestao-residuos-db
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=MinhaSenh@123
+      - MSSQL_PID=Developer
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlserver_data:/var/opt/mssql
+    networks:
+      - gestao-residuos-network
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P MinhaSenh@123 -Q 'SELECT 1' -C"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 10s
+
+  # API da aplicação
+  api:
+    build:
+      context: ./src/GestaoResiduos.API
+      dockerfile: Dockerfile
+    container_name: gestao-residuos-api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "8080:8080"
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+    networks:
+      - gestao-residuos-network
+
+volumes:
+  sqlserver_data:
+
+networks:
+  gestao-residuos-network:
+    driver: bridge

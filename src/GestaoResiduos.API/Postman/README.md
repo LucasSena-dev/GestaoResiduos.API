@@ -13,7 +13,7 @@ Esta pasta contém a collection e environment do Postman para testar a API de Ge
 
 ### 2. Configurar o Environment
 1. Selecione o environment "Gestão de Resíduos - Local"
-2. Verifique se a variável `baseUrl` está apontando para `https://localhost:5031`
+2. Verifique se a variável `baseUrl` está apontando para `http://localhost:5031`
 3. Se a API estiver rodando em outra porta, atualize a variável
 
 ### 3. Executar a API

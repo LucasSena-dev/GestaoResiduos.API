@@ -86,7 +86,15 @@ StyleCopReport.xml
 *.ldf
 *.ndf
 
+# Docker
+.docker/
+docker-compose.override.yml
+.dockerignore
+
 # Database
 *.db
 *.sqlite
 *.sqlite3
+
+# Production settings (se contém senhas)
+# appsettings.Production.json
