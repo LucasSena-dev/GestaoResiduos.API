@@ -1,0 +1,226 @@
+{
+	"info": {
+		"_postman_id": "12345678-1234-1234-1234-123456789012",
+		"name": "Gestão de Resíduos API",
+		"description": "Collection para testar a API de Gestão de Resíduos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Pontos de Coleta",
+			"item": [
+				{
+					"name": "Listar Pontos de Coleta",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/CollectionPoints?page=1&pageSize=10",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "CollectionPoints"],
+							"query": [
+								{"key": "page", "value": "1"},
+								{"key": "pageSize", "value": "10"}
+							]
+						}
+					}
+				},
+				{
+					"name": "Criar Ponto de Coleta",
+					"request": {
+						"method": "POST",
+						"header": [
+							{"key": "Content-Type", "value": "application/json"}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Ecoponto Centro\",\n  \"location\": \"Rua Principal, 123 - Centro\",\n  \"latitude\": -23.5505,\n  \"longitude\": -46.6333,\n  \"responsiblePerson\": \"João Silva\",\n  \"contact\": \"(11) 99999-9999\",\n  \"acceptedCategories\": \"Plástico,Papel,Metal\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/CollectionPoints",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "CollectionPoints"]
+						}
+					}
+				},
+				{
+					"name": "Buscar Pontos Próximos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/CollectionPoints/nearby?latitude=-23.5505&longitude=-46.6333&radiusKm=5",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "CollectionPoints", "nearby"],
+							"query": [
+								{"key": "latitude", "value": "-23.5505"},
+								{"key": "longitude", "value": "-46.6333"},
+								{"key": "radiusKm", "value": "5"}
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Resíduos",
+			"item": [
+				{
+					"name": "Listar Resíduos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/Residues?page=1&pageSize=10",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "Residues"],
+							"query": [
+								{"key": "page", "value": "1"},
+								{"key": "pageSize", "value": "10"}
+							]
+						}
+					}
+				},
+				{
+					"name": "Criar Resíduo",
+					"request": {
+						"method": "POST",
+						"header": [
+							{"key": "Content-Type", "value": "application/json"}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Garrafas PET\",\n  \"description\": \"Garrafas plásticas de refrigerante\",\n  \"category\": \"Plástico\",\n  \"currentQuantity\": 150,\n  \"alertThreshold\": 100\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/Residues",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "Residues"]
+						}
+					}
+				},
+				{
+					"name": "Verificar Alertas",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/Residues/check-alerts",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "Residues", "check-alerts"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Coletas Agendadas",
+			"item": [
+				{
+					"name": "Listar Coletas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/ScheduledCollections?page=1&pageSize=10",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "ScheduledCollections"],
+							"query": [
+								{"key": "page", "value": "1"},
+								{"key": "pageSize", "value": "10"}
+							]
+						}
+					}
+				},
+				{
+					"name": "Agendar Coleta",
+					"request": {
+						"method": "POST",
+						"header": [
+							{"key": "Content-Type", "value": "application/json"}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"residueId\": 1,\n  \"collectionPointId\": 1,\n  \"scheduledDate\": \"2025-05-26T10:00:00\",\n  \"estimatedQuantity\": 50,\n  \"notes\": \"Primeira coleta de teste\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/ScheduledCollections",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "ScheduledCollections"]
+						}
+					}
+				},
+				{
+					"name": "Completar Coleta",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{"key": "Content-Type", "value": "application/json"}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"actualQuantity\": 45,\n  \"notes\": \"Coleta realizada com sucesso\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/ScheduledCollections/1/complete",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "ScheduledCollections", "1", "complete"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Notificações",
+			"item": [
+				{
+					"name": "Listar Notificações",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/Notifications?page=1&pageSize=10",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "Notifications"],
+							"query": [
+								{"key": "page", "value": "1"},
+								{"key": "pageSize", "value": "10"}
+							]
+						}
+					}
+				},
+				{
+					"name": "Contar Não Lidas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/Notifications/unread-count",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "Notifications", "unread-count"]
+						}
+					}
+				},
+				{
+					"name": "Marcar como Lida",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/Notifications/1/read",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "Notifications", "1", "read"]
+						}
+					}
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://localhost:5001",
+			"type": "string"
+		}
+	]
+}

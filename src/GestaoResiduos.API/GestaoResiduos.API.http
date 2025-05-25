@@ -1,0 +1,6 @@
+@GestaoResiduos.API_HostAddress = http://localhost:5031
+
+GET {{GestaoResiduos.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
